@@ -1,5 +1,35 @@
 # CodeIgniter 4 Application Starter
 
+## Setup project
+composer update
+### Changing env file
+database.default.hostname = localhost <br>
+database.default.database = todo <br>
+database.default.username = root <br>
+database.default.password =  <br>
+database.default.DBDriver = MySQLi <br>
+database.default.DBPrefix = <br>
+database.default.port = 3306 <br>
+
+<br>
+
+CI_ENVIRONMENT = development
+
+<br>
+<br>
+
+php spark serve
+
+<br>
+
+php spark db:create todo
+
+
+
+
+
+
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
