@@ -1,1 +1,58 @@
-Documentation:
+**Documentation:
+--------------------------------------------------------------------------------------------------------------------------------------
+**Database: 
+todo
+--------------------------------------------------------------------------------------------------------------------------------------
+**Table:
+category --> id, name, count, created_at, updated_at, deleted_at
+--------------------------------------------------------------------------------------------------------------------------------------
+**Models:
+
+CategoryModel
+--> Validation Rules:  'name'   =>  'required|alpha_numeric_space',  'count'  =>  'required|is_natural' 
+
+--> allowedFields:     'name','count','created_at','updated_at'
+--------------------------------------------------------------------------------------------------------------------------------------
+**Seeds:
+Category
+public function run()
+    {
+        $data = [
+            [
+                'name' => 'Work',
+                'count' => '0',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+
+            ]
+
+
+        ];
+
+        $CategoryModel = new \App\Models\CategoryModel();
+
+        foreach ($data as $entry_id => $entry_data) {
+            if ($CategoryModel->insert($entry_data) === false) {
+                echo "Errors on entry_id ${entry_id}:\n";
+                print_r($CategoryModel->errors());
+            }
+        }
+        
+    }
+--------------------------------------------------------------------------------------------------------------------------------------
+Migrations:
+2024-05-01-135637_Category
+public function up()
+    {
+        $this->db->query("CREATE TABLE category
+        (
+           id INT(11) UNSIGNED AUTO_INCREMENT,
+           name VARCHAR(255),
+           count int,
+           created_at DATETIME,
+           updated_at DATETIME,
+           deleted_at DATETIME,
+           PRIMARY KEY (id)
+        );
+        ");
+--------------------------------------------------------------------------------------------------------------------------------------
