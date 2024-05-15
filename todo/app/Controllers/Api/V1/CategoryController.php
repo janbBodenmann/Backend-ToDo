@@ -45,9 +45,11 @@ class CategoryController extends ResourceController
                 $data['id'] = $new_id;
                 return $this->respondCreated($data);
             }
+        } else {
+            return $this->failValidationError($this->model->errors());
         }
     }
-    
+
 
     public function update($id = null)
     {
@@ -69,19 +71,27 @@ class CategoryController extends ResourceController
             return $this->failServerError('Failed to update category');
         }
     }
-
+    
     public function delete($id = null)
     {
+
         if (!empty($id)) {
             $data_exists = $this->model->find($id);
+
+
             if (!empty($data_exists)) {
+
                 $delete_status = $this->model->delete($id);
+
                 if ($delete_status === true) {
                     return $this->respondDeleted(['id' => $id]);
+
                 }
+
             } else {
                 return $this->failNotFound();
             }
+
         }
     }
 }
