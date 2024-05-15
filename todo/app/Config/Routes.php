@@ -8,3 +8,5 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 $routes->resource('api/v1/todos');
+
+$routes->resource('api/v1/CategoryController');
