@@ -1,12 +1,15 @@
 # CodeIgniter 4 Application Starter
 
 ## Setup project
+
 composer update
+
 ### Changing env file
+
 database.default.hostname = localhost <br>
 database.default.database = todo <br>
 database.default.username = root <br>
-database.default.password =  <br>
+database.default.password = <br>
 database.default.DBDriver = MySQLi <br>
 database.default.DBPrefix = <br>
 database.default.port = 3306 <br>
@@ -23,12 +26,8 @@ php spark serve
 <br>
 
 php spark db:create todo
-
-
-
-
-
-
+php spark migrate
+php spark db:seed Todos
 
 ## What is CodeIgniter?
 
@@ -60,11 +59,11 @@ and any database settings.
 
 ## Important Change with index.php
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+`index.php` is no longer in the root of the project! It has been moved inside the _public_ folder,
 for better security and separation of components.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+This means that you should configure your web server to "point" to your project's _public_ folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter _public/..._, as the rest of your logic and the
 framework are exposed.
 
 **Please** read the user guide for a better explanation of how CI4 works!
