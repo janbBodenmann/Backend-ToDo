@@ -71,7 +71,7 @@ class CategoryController extends ResourceController
             return $this->failServerError('Failed to update category');
         }
     }
-    
+
     public function delete($id = null)
     {
 
@@ -80,12 +80,20 @@ class CategoryController extends ResourceController
 
 
             if (!empty($data_exists)) {
+                //Checks for if model category count = 0 does not work
 
-                $delete_status = $this->model->delete($id);
+                $result = $this->model->find($id);
 
-                if ($delete_status === true) {
-                    return $this->respondDeleted(['id' => $id]);
+                if (!empty($result) && ($result['count'] == 0)) {
 
+                    $delete_status = $this->model->delete($id);
+
+                    if ($delete_status === true) {
+                        return $this->respondDeleted(['id' => $id]);
+
+                    }
+                } else {
+                    return $this->fail("error category has been used", 400);
                 }
 
             } else {
