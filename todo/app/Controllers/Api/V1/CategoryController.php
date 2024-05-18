@@ -68,6 +68,9 @@ class CategoryController extends ResourceController
         if (!$category) {
             return $this->failNotFound('Category not found');
         }
+        if (!empty($data['count'])){
+            $data['count'] = $category['count'];
+        }
         $updated = $this->model->update($id, $data);
         if ($updated) {
             return $this->respondUpdated($data);
