@@ -92,22 +92,41 @@ class Todos extends ResourceController
 
     public function update($id = null)
     {
+        // Checks if id is given
         if ($id === null) {
             return $this->failValidationError('ID is required');
         }
+        // Checks if data is provided
         $data = $this->request->getJSON(true);
         if (empty($data)) {
             return $this->failValidationError('No data provided');
         }
-        $category = $this->model->find($id);
-        if (!$category) {
-            return $this->failNotFound('Category not found');
+        // Checks if a todo with that id even exists
+        $todo = $this->model->find($id);
+        if (!$todo) {
+            return $this->failNotFound('Todo not found');
         }
+        // Updates todo
         $updated = $this->model->update($id, $data);
         if ($updated) {
-            return $this->respondUpdated($data);
+            // If category id wants to be changed it goes in this if statement
+            if (!empty($todo['category_id'])) {
+                //Getting old category
+                $category = $this->categoryModel->find($todo['category_id']);
+                //Decrementing and updating old category
+                $category['count'] -= 1;
+                $this->categoryModel->update($todo['category_id'], $category);
+                //Finding, incrementing and updating new category
+                $category = $this->categoryModel->find($data['category_id']);
+                $category['count'] += 1;
+                $this->categoryModel->update($data['category_id'], $category);
+                //
+            } 
+            if (!empty($category)) {
+                return $this->respondUpdated($data);
+            }
         } else {
-            return $this->failServerError('Failed to update category');
+            return $this->failServerError('Failed to update Todo');
         }
     }
 
@@ -120,11 +139,11 @@ class Todos extends ResourceController
 
             if (!empty($data_exists)) {
                 // Updating the value of count in Category (increasing it)
-                    //Finds the category
+                //Finds the category
                 $category = $this->categoryModel->find($data_exists['category_id']);
-                    //gets value of count and increments it by one
+                //gets value of count and increments it by one
                 $category['count'] -= 1;
-                    //updates category with new count value
+                //updates category with new count value
                 $this->categoryModel->update($data_exists['category_id'], $category);
 
                 $delete_status = $this->model->delete($id);
