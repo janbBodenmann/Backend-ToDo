@@ -33,7 +33,11 @@ class CategoryController extends ResourceController
 
     public function create()
     {
+        // If user adds count to 10 even though he never used it. Will be set to 0.
         $data = $this->request->getJSON(true);
+        if ($data['count'] != 0) {
+            $data['count'] = 0;
+        }
         if (!empty($data)) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -93,7 +97,7 @@ class CategoryController extends ResourceController
 
                     }
                 } else {
-                    return $this->fail("error category has been used", 400);
+                    return $this->fail("error category is being used", 400);
                 }
 
             } else {

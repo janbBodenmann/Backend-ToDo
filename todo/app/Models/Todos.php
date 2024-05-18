@@ -31,7 +31,7 @@ class Todos extends Model
     protected $validationRules = [
         'name' => 'required|alpha_numeric_space',
         'open' => 'required|in_list[0,1]',
-        'category_id' => 'required|is_natural_no_zero'
+        'category_id' => 'permit_empty|is_natural_no_zero'
     ];
     protected $validationMessages = [];
     protected $skipValidation = false;

@@ -28,6 +28,7 @@ php spark serve
 php spark db:create todo
 php spark migrate
 php spark db:seed Todos
+php spark db:seed Category
 
 ## What is CodeIgniter?
 
