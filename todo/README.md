@@ -19,9 +19,9 @@ database.default.port = 3306 <br>
 CI_ENVIRONMENT = development
 
 <br>
-<br>
 
-php spark serve
+
+
 
 <br>
 
@@ -29,6 +29,10 @@ php spark db:create todo
 php spark migrate
 php spark db:seed Todos
 php spark db:seed Category
+
+<br>
+
+php spark serve
 
 ## What is CodeIgniter?
 
