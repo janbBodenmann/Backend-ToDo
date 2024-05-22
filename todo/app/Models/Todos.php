@@ -47,4 +47,9 @@ class Todos extends Model
     protected $afterFind = [];
     protected $beforeDelete = [];
     protected $afterDelete = [];
+
+
+    function getOpenTodos(){
+        return $this->where('open', '1')->findAll();
+    }
 }

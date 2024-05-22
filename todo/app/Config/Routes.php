@@ -10,3 +10,4 @@ $routes->get('/', 'Home::index');
 $routes->resource('api/v1/todos');
 
 $routes->resource('api/v1/CategoryController');
+$routes->cli('mail/sendEmail', 'Mail::sendEmail');
