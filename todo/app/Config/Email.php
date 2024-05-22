@@ -8,7 +8,7 @@ class Email extends BaseConfig
 {
     public string $fromEmail  = 'mailer@berufsbildung-test.ch';
     public string $fromName   = 'Meine Test API';
-    public string $recipients = 'damian.mermod@edu.vs.ch';
+    public string $recipients = 'sm@edu.vs.ch';
 
     /**
      * The "user agent"
