@@ -34,6 +34,8 @@ php spark db:seed Category
 
 php spark serve
 
+<br> env Datei: security.csrfProtection = 'session'
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.

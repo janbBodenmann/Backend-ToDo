@@ -53,8 +53,15 @@ public function up()
            updated_at DATETIME,
            deleted_at DATETIME,
            PRIMARY KEY (id)
-        );
+    );
         ");
 --------------------------------------------------------------------------------------------------------------------------------------
 **Api\Controller:
 CategoryController
+
+**For Postman with API Key and JWT:
+Go to Body with this Input: {"email" : "example@example.ch" , "password" : "Bfo12345"}
+Send it as post with this path: http://localhost:8080/auth/jwt
+You will get an Token
+Go to an post with this path: http://localhost:8080/api/v1/todos
+Go to Authorization and put Bearer Token in and paste the Token in now do Get
