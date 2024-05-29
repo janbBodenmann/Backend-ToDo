@@ -35,6 +35,8 @@ class CheckAPIKey implements FilterInterface
 
         // First, set access to false, then check all rules
         $has_valid_api_key = FALSE;
+        $has_valid_ip = FALSE;
+
 
         if ($api_config->check_api_key === TRUE) {
 
@@ -44,12 +46,33 @@ class CheckAPIKey implements FilterInterface
             // Is API Key set?
             if (!empty($key)) {
 
+                /**
+                 * Variante 1
+                 * Check API Key by Config
+                 */
+
                 // Check API Key
                 if (array_key_exists($key, $api_config->allowed_api_keys)) {
 
                     $has_valid_api_key = TRUE;
 
                 }
+
+
+
+                /**
+                 * Variante 2
+                 * Check API Key by Model
+                 */
+
+                // Get API Keys (from Model)
+                $api_model = model('APIKeys');
+
+                // Check API Key
+                if ($api_model->check($key) !== FALSE) {
+                    $has_valid_api_key = TRUE;
+                }
+
 
             }
         }
@@ -58,7 +81,25 @@ class CheckAPIKey implements FilterInterface
         }
 
 
-        if (!$has_valid_api_key) {
+        if ($has_valid_api_key) {
+            
+            /**
+             * Simple log request into log file
+             */
+            log_api_request($request, $key);
+
+
+            /**
+             * Übung 2: Log file into db?
+             * 
+             * TODO
+             * 
+             */
+
+
+            
+        }
+        else {
 
             // Send forbidden header
             return Services::response()
@@ -66,7 +107,8 @@ class CheckAPIKey implements FilterInterface
                     [
                         'error' => 'Unauthorized'
                     ]
-                )->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+                )
+                ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
 
         }
 
@@ -88,6 +130,9 @@ class CheckAPIKey implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+
+        // Log response?
+        //log_message('info', 'API Response: '.print_r($response->getBody(), TRUE));
+
     }
 }

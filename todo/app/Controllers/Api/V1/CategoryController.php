@@ -10,6 +10,7 @@ class CategoryController extends ResourceController
 {
     protected $modelName = 'App\Models\CategoryModel';
     protected $format = 'json';
+    
 
     public function index()
     {
@@ -26,10 +27,16 @@ class CategoryController extends ResourceController
             $data = $this->model->find($id);
             if (!empty($data)) {
                 return $this->respond($data);
+               
             }
         }
+        log_message('info','Show per ID.');
         return $this->failNotFound();
+        
     }
+  
+    
+    
 
     public function create()
     {
@@ -49,9 +56,11 @@ class CategoryController extends ResourceController
                 $data['id'] = $new_id;
                 return $this->respondCreated($data);
             }
-        } else {
+        } else {  log_message('info','Show per ID');
             return $this->failValidationError($this->model->errors());
+            
         }
+       
     }
 
 
@@ -74,9 +83,10 @@ class CategoryController extends ResourceController
         $updated = $this->model->update($id, $data);
         if ($updated) {
             return $this->respondUpdated($data);
-        } else {
+        } else { log_message('info','Show per ID');
             return $this->failServerError('Failed to update category');
         }
+        
     }
 
     public function delete($id = null)
@@ -103,11 +113,12 @@ class CategoryController extends ResourceController
                     return $this->fail("error category is being used", 400);
                 }
 
-            } else {
+            } else { log_message('info','Show per ID');
                 return $this->failNotFound();
-            }
+            } 
 
         }
+       
     }
 }
 ?>

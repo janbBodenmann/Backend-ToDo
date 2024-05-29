@@ -42,3 +42,24 @@ function get_api_key_from_request(RequestInterface $request) {
 
 }
 
+
+
+/**
+ * Log API request
+ *
+ * @param RequestInterface $request
+ * @param string $api_key
+ * @return mixed
+ */
+function log_api_request(RequestInterface $request, $api_key = '') {
+
+	// Get method (GET, POST, etc.)
+	$method = $request->getMethod(TRUE);
+
+	// GEt URL
+	$url = $request->getUri();
+
+	// Log
+	return log_message('info', 'API Request from '.$api_key.' to '.$url.' ('.$method.')');
+	
+}
