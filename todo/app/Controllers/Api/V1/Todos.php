@@ -21,12 +21,68 @@ class Todos extends ResourceController
 
     public function index()
     {
-        $all_data = $this->model->findAll();
-        if (!empty($all_data)) {
 
-            return $this->respond($all_data);
+        $request = \Config\Services::request();
+        $filter = [];
+
+        // Checks for status
+        $status = $request->getGet("status");
+        if (isset($status)) {
+            $filter['status'] = $status;
         }
+
+        // Checks for category
+        $category_id = $request->getGet("category_id");
+        if (isset($category_id)) {
+            $filter['category_id'] = $category_id;
+        }
+
+        // Checks for limit
+        $limit = $request->getGet("limit");
+        if (isset($limit)) {
+            $filter['limit'] = $limit;
+        }
+
+        // Checks for name like
+        $name = $request->getGet("name");
+        if (isset($name)) {
+            $filter['name'] = $name;
+        }
+
+        $order_by = $request->getGet("order_by");
+        if (isset($order_by)) {
+            $order_by = explode(',', $order_by);
+            // print_r($order_by);
+            // exit;
+            if (count($order_by) == 2) {
+                if ($order_by[1] == 'asc' || $order_by[1] == 'desc') {
+
+                } else {
+                    return $this->fail("Wrong syntax order_by should look like 'blabla,desc' or 'blabla,asc'!", 403);
+                }
+            } else {
+                // array_push($order_by, $order_by);
+                array_push($order_by, 'desc');
+            }
+            $filter['order_by'] = $order_by;
+        }
+
+
+        $filteredRequest = $this->model->getFiltered($filter);
+
+        //wenn kein filter gebraucht wird
+        if (empty($filteredRequest)) {
+            $all_data = $this->model->findAll();
+            if (!empty($all_data)) {
+
+                return $this->respond($all_data);
+            }
+        } else {
+            return $this->respond($filteredRequest);
+        }
+
         return $this->failNotFound();
+
     }
 
     public function show($id = null)
@@ -121,7 +177,7 @@ class Todos extends ResourceController
                 $category['count'] += 1;
                 $this->categoryModel->update($data['category_id'], $category);
                 //
-            } 
+            }
             if (!empty($category)) {
                 return $this->respondUpdated($data);
             }
@@ -158,6 +214,13 @@ class Todos extends ResourceController
             }
 
         }
+    }
+
+
+    public function status($bool = 1)
+    {
+        $test = $this->model->getOpenTodos($bool);
+        return $this->respond($test);
     }
 
 }
