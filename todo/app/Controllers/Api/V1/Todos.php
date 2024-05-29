@@ -28,7 +28,11 @@ class Todos extends ResourceController
         // Checks for status
         $status = $request->getGet("status");
         if (isset($status)) {
-            $filter['status'] = $status;
+            if ($status == '0' || $status == '1') {
+                $filter['status'] = $status;
+            } else {
+                return $this->fail("Wrong syntax with 'status' you can only use 0 or 1", 403);
+            }
         }
 
         // Checks for category
