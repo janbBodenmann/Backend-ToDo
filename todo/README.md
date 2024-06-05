@@ -36,6 +36,11 @@ php spark serve
 
 <br> env Datei: security.csrfProtection = 'session'
 
+<br>
+//installation for shield:
+
+php spark shield:setup
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.

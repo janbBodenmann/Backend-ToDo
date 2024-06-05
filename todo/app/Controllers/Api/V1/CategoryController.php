@@ -18,6 +18,7 @@ class CategoryController extends ResourceController
         if (!empty($data)) {
             return $this->respond($data);
         }
+        log_message('debug','Show per ID.');
         return $this->failNotFound();
     }
 
@@ -30,7 +31,8 @@ class CategoryController extends ResourceController
                
             }
         }
-        log_message('info','Show per ID.');
+        
+        
         return $this->failNotFound();
         
     }
