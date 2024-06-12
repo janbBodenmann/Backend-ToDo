@@ -47,6 +47,12 @@ class CategoryController extends ResourceController
         if ($data['count'] != 0) {
             $data['count'] = 0;
         }
+
+        $dublicateId = $this->model->find($data['id']);
+        if(!empty($dublicateId)){
+            return $this->fail("Error dublicaded ID", 400);
+        }
+
         if (!empty($data)) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -77,7 +83,7 @@ class CategoryController extends ResourceController
         }
         $category = $this->model->find($id);
         if (!$category) {
-            return $this->failNotFound('Category not found');
+            return $this->failNotFound('Category not found', 400);
         }
         if (!empty($data['count'])){
             $data['count'] = $category['count'];

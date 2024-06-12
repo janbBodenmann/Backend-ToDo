@@ -20,3 +20,6 @@ $routes->group('api', ['filter' => 'jwt'], static function ($routes) {
 });
 
 $routes->get('users', 'UserController::list', ['filter' => 'jwt']);
+
+// $routes->get('api/v1/todos_status/(:segment)', 'api\v1\Todos::status/$1');
+

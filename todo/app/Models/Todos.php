@@ -49,7 +49,34 @@ class Todos extends Model
     protected $afterDelete = [];
 
 
-    function getOpenTodos(){
-        return $this->where('open', '1')->findAll();
+    function getOpenTodos($bool)
+    {
+        return $this->where('open', $bool)->findAll();
+    }
+
+
+    function getFiltered($filter = [])
+    {
+        $builder = $this->builder();
+        if (!empty($filter)) {
+
+            if (isset($filter['status'])) {
+                $builder = $this->where('open', $filter['status']);
+            }
+            if (isset($filter['category_id'])) {
+                $builder->where('category_id', $filter['category_id']);
+            }
+
+            if (isset($filter['name'])) {
+                $builder->like('name', $filter['name']);
+            }
+            if (isset($filter['order_by'])) {
+                $builder->orderBy($filter['order_by'][0], $filter['order_by'][1]);
+            }
+            if (isset($filter['limit'])) {
+                $builder->limit($filter['limit']);
+            }
+        }
+
     }
 }
