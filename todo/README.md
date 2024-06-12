@@ -42,6 +42,11 @@ php spark serve
 
 php spark shield:setup
 
+no 
+no 
+no 
+yes
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.

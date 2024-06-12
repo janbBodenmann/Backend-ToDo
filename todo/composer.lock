@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81e6b85322afaa27feb6d70d8a0e4bde",
+    "content-hash": "c67d6fc8d0932cd2acf8ddc0e41d4462",
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.5.1",
+            "version": "v4.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "9b2cd730db29d14ac6e760fb15c4bcac15184ec4"
+                "reference": "163f11101a49d7ab70287f6163e5b647a0e26fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/9b2cd730db29d14ac6e760fb15c4bcac15184ec4",
-                "reference": "9b2cd730db29d14ac6e760fb15c4bcac15184ec4",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/163f11101a49d7ab70287f6163e5b647a0e26fa4",
+                "reference": "163f11101a49d7ab70287f6163e5b647a0e26fa4",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2024-04-14T04:18:29+00:00"
+            "time": "2024-06-10T08:02:36+00:00"
         },
         {
             "name": "codeigniter4/settings",
@@ -141,12 +141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/shield.git",
-                "reference": "b942c47dadc3872ad44d6d27100b90e22c320928"
+                "reference": "aa40f9c121d9619470c743afc99426c2d29477a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/shield/zipball/b942c47dadc3872ad44d6d27100b90e22c320928",
-                "reference": "b942c47dadc3872ad44d6d27100b90e22c320928",
+                "url": "https://api.github.com/repos/codeigniter4/shield/zipball/aa40f9c121d9619470c743afc99426c2d29477a5",
+                "reference": "aa40f9c121d9619470c743afc99426c2d29477a5",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/shield"
             },
-            "time": "2024-05-19T06:07:33+00:00"
+            "time": "2024-06-08T03:04:52+00:00"
         },
         {
             "name": "firebase/php-jwt",
