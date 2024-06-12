@@ -85,7 +85,7 @@ class Todos extends ResourceController
             return $this->respond($filteredRequest);
         }
 
-        return $this->failNotFound();
+        return $this->fail("There is no todo with such a Category id");
 
     }
 
@@ -110,10 +110,11 @@ class Todos extends ResourceController
         if (!empty($data)) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
+            
 
             // Checks if it gives a category id
-            if (!empty($data['category_id'])) {
-
+            if (isset($data['category_id'])) {
+                
                 //Checks in todo if category id exists if yes it returns the id else null
 
                 $categoryExists = $this->categoryModel->where('id', $data['category_id'])->first();
@@ -138,14 +139,14 @@ class Todos extends ResourceController
             }
 
             if ($new_id == false) {
-                return $this->failValidationError($this->model->errors());
+                return $this->fail("Fail");
             } else {
                 // Füge die neu erstellte ID dem Antwortdatenarray hinzu
                 $data['id'] = $new_id;
                 return $this->respondCreated($data);
             }
         } else {
-            return $this->failValidationError($this->model->errors());
+            return $this->fail("Might have syntax errors or you give wrong parameters. Only: name, category, open. Name and open are required");
         }
     }
 
@@ -181,6 +182,8 @@ class Todos extends ResourceController
                 $category['count'] += 1;
                 $this->categoryModel->update($data['category_id'], $category);
                 //
+            } else {
+                return $this->fail("Success", status:200);
             }
             if (!empty($category)) {
                 return $this->respondUpdated($data);
@@ -192,32 +195,42 @@ class Todos extends ResourceController
 
     public function delete($id = null)
     {
-
-        if (!empty($id)) {
+        
+        if (isset($id)) {
             $data_exists = $this->model->find($id);
-
+            // print_r($id);
+            // return;
 
             if (!empty($data_exists)) {
+                
                 // Updating the value of count in Category (increasing it)
                 //Finds the category
+
                 $category = $this->categoryModel->find($data_exists['category_id']);
+
+                if(empty($category)){
+                    return $this->fail("Error in settings category was already deleted or never existed");
+                }
+                
                 //gets value of count and increments it by one
                 $category['count'] -= 1;
                 //updates category with new count value
                 $this->categoryModel->update($data_exists['category_id'], $category);
 
                 $delete_status = $this->model->delete($id);
-
+                
                 if ($delete_status === true) {
                     return $this->respondDeleted(['id' => $id]);
 
+                } else {
+                    return $this->fail("No such todo");
                 }
 
             } else {
-                return $this->failNotFound();
+                return $this->fail("No todo with that id or id not set");
             }
 
-        }
+        } 
     }
 
 

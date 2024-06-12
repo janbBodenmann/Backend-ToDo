@@ -19,7 +19,7 @@ class CategoryController extends ResourceController
             return $this->respond($data);
         }
         log_message('debug','Show per ID.');
-        return $this->failNotFound();
+        return $this->fail("No data found");
     }
 
     public function show($id = null)
@@ -48,10 +48,13 @@ class CategoryController extends ResourceController
             $data['count'] = 0;
         }
 
-        $dublicateId = $this->model->find($data['id']);
-        if(!empty($dublicateId)){
-            return $this->fail("Error dublicaded ID", 400);
+        if(!empty($data['id'])){
+            $dublicateId = $this->model->find($data['id']);
+            if(!empty($dublicateId)){
+                return $this->fail("Error dublicaded ID", 400);
+            }
         }
+
 
         if (!empty($data)) {
             $data['created_at'] = date('Y-m-d H:i:s');
@@ -107,9 +110,9 @@ class CategoryController extends ResourceController
             if (!empty($data_exists)) {
                 //Checks for if model category count = 0 does not work
 
-                $result = $this->model->find($id);
+                // $result = $this->model->find($id);
 
-                if (!empty($result) && ($result['count'] == 0)) {
+                if (($data_exists['count'] == 0)) {
 
                     $delete_status = $this->model->delete($id);
 

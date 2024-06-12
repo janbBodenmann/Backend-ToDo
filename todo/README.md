@@ -47,6 +47,18 @@ no
 no 
 yes
 
+
+## Server env settings
+
+database.default.hostname = berufsbildung-test.ch
+database.default.database = zubinich_uek2952024gruppe1
+database.default.username = zubinich_uek2952
+database.default.password = sUa-5pE-9ke-3W
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
+
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
